@@ -9,10 +9,10 @@ app = Flask(__name__)
     
 @app.route('/leagueapp', methods=['POST']) #route to application specific for groupme callback url.
 def get_groupme_text():
-    bot_name = "" #botname search string will search for
+    bot_name = "legends_bot" #botname search string will search for
     bot_ring = "@%s" %bot_name #assumes @botname will trigger call to function to send a message as bot.
     data = request.get_json() #json data posted by groupme
-        
+    print data    
     if data['name'] != bot_name and bot_ring in data['text']: #if the message is not from the bot and includes @botname respond
         post_to_bot(data['name'], data['text'])
 
@@ -35,7 +35,10 @@ def post_to_bot(name, keyword):
         dictToSend['text'] = "Hi %s, I'm still being built for now please ask me about \'schedule\' and \'standings\'" % name
     
     return requests.post(url, data=json.dumps(dictToSend), headers=headers) #post data to groupme for bot response
-    
+
+def log(msg):
+  print(str(msg))
+  sys.stdout.flush()    
 
 #app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080))) #CLOUD9 TESTING
 
