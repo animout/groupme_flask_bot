@@ -20,7 +20,7 @@ def get_groupme_text():
     
 
 def post_to_bot(name, keyword):
-    bot_id = "" #botID of the created groupme bot.
+    bot_id = os.getenv('GROUPME_BOT') #botID of the created groupme bot, enviornment variable
     dictToSend = {'bot_id': bot_id , 'text': ''} # placeholder for JSON dictonary to be sent to groupme.
     headers = {'Content-Type' : 'application/json'} #http header
     url = 'https://api.groupme.com/v3/bots/post' #url for posting to groupme
